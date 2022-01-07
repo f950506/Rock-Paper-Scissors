@@ -1,5 +1,65 @@
 console.log("howdy");
 
+const playerName = document.createElement('div');;
+const nameContainer = document.querySelector('.nameContainer');
+const nameInput = document.querySelector('#nameInput');
+const nameSubmit = document.querySelector('#nameSubmit');
+nameSubmit.addEventListener('click', () => {
+    playerName.classList.add('name');
+    playerName.textContent = document.getElementById('nameInput').value;
+    nameContainer.prepend(playerName);
+    nameContainer.removeChild(nameInput);
+    nameContainer.removeChild(nameSubmit);
+});
+
+const winner = document.querySelector('#winner');
+const result = document.querySelector('#result');
+const scoreBoard = document.querySelector('#scoreBoard');
+const playerScore = document.querySelector('#playerScore');
+const cpuScore = document.querySelector('#cpuScore');
+const buttons = document.querySelectorAll('button');
+const reset = document.querySelector('reset');
+document.getElementById('reset').addEventListener('mouseup', resetGame);
+
+buttons.forEach(button => {
+    button.addEventListener('mousedown', () => {
+        button.classList.add('playing');
+        result.textContent = playRound(button.id, computerPlay());
+        winner.textContent = winCondition(playerScore, cpuScore);
+    });
+});
+buttons.forEach(button => button.addEventListener('transitionend', removeTransition));
+
+function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+}
+
+function winCondition(playerScore, cpuScore) {
+    if ((playerScore.textContent < 5) && (cpuScore.textContent < 5)) return 'Who will emerge victorious?';
+    else {
+        buttons.forEach(button => {button.disabled = true;} );
+        document.getElementById('reset').disabled = false;
+        if (playerScore.textContent == 5) {
+            if (cpuScore.textContent < 3) return `${playerName.textContent} wins in a dominant fashion!`;
+            else return `${playerName.textContent} wins the tight game!`;
+        }
+        else if (cpuScore.textContent == 5) {
+            if (playerScore.textContent < 3) return `CPU is the winner! What an absolutely pathetic display from ${playerName.textContent}!`;
+            else return `CPU is the winner! Better luck to ${playerName.textContent} next time!`;
+        }
+    }
+}
+
+function resetGame() {
+    playerScore.textContent = 0;
+    cpuScore.textContent = 0;
+    buttons.forEach(button => {button.disabled = false;} );
+    document.getElementById('reset').disabled = true;
+    winner.textContent = 'Who will emerge victorious?';
+    result.textContent = 'Ready, set, go!';
+}
+
 function computerPlay() {
     rand = Math.floor(Math.random() * 3);
     
@@ -16,44 +76,30 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    switch (playerSelection.toLowerCase() + computerSelection.toLowerCase()) {
+    switch (playerSelection + computerSelection) {
         case "rockrock":
-            return "It's a draw!"
+            return "Rock and rock, it's a draw!"
         case "rockpaper":
-            return "Computer wins!"
+            cpuScore.textContent++;
+            return "Paper beats rock, CPU wins!"
         case "rockscissors":
-            return "Player wins!"
+            playerScore.textContent++;
+            return `Rock beats scissors, ${playerName.textContent} wins!`
         case "paperrock":
-            return "Player wins!"
+            playerScore.textContent++;
+            return `Paper beats rock, ${playerName.textContent} wins!`
         case "paperpaper":
-            return "It's a draw!"
+            return "Paper and paper, it's a draw!"
         case "paperscissors":
-            return "Computer wins!"
+            cpuScore.textContent++;
+            return "Scissors beat paper, CPU wins!"
         case "scissorsrock":
-            return "Computer wins!"
+            cpuScore.textContent++;
+            return "Rock beats scissors, CPU wins!"
         case "scissorspaper":
-            return "Player wins!"
+            playerScore.textContent++;
+            return `Scissors beat paper, ${playerName.textContent} wins!`
         case "scissorsscissors":
-            return "It's a draw!"
+            return "Scissors and scissors, it's a draw!"
     }
-}
-
-function game() {
-    let playerWin = 0, computerWin = 0;
-    
-    while ((playerWin + computerWin) != 5) {
-        let playerInput = window.prompt("Rock, Paper, or Scissors?");
-        if (playRound(playerInput, computerPlay()) == "Player wins!") {
-            console.log("Player wins!");
-            playerWin++;
-        }
-        else if (playRound(playerInput, computerPlay()) == "Computer wins!") {
-            console.log("Computer wins!");
-            computerWin++;
-        }
-        else console.log("Draw!")
-    }
-
-    if (playerWin > computerWin) return "Player won " + playerWin + " to " + computerWin + "!";
-    else if (playerWin < computerWin) return "Player lost " + playerWin + " to " + computerWin + "!";
 }

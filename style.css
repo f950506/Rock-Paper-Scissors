@@ -1,0 +1,85 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    background-image: url('./img/duel.jpg');
+    background-size: 100% auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.nameContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.name,
+#nameInput {
+    margin-top: 60px;
+    width: 200px;
+    height: 36px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 40px;
+    align-items: center;
+    flex-basis: 60%;
+}
+
+h1 {
+    margin: 0;
+    padding-top: 21px;
+    font-size: 40px;
+}
+
+#result {
+    height: 27px;
+}
+
+@font-face {
+    font-family: 'Digital-font';
+    src: url('./digital-7.regular.ttf');
+}
+
+.scoreBoard {
+    display: flex;
+    justify-content: space-evenly;
+    font-family: 'Digital-font';
+    font-variant-numeric: tabular-nums lining-nums;
+    font-size: 100px;
+    width: 200px;
+    height: 80px;
+    color: red;
+    background-color: rgb(34, 34, 34);
+    border: 6px solid black;
+}
+
+.score {
+    width: 50px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+}
+
+button {
+    width: 100px;
+    font-size: 20px;
+    border-radius: 8px;
+    background-color: lightgray;
+    transition: all, 0.07s;
+}
+
+.playing {
+    transform: scale(1.1);
+    border-color: orange;
+    box-shadow: 0 0 10px orange;
+}

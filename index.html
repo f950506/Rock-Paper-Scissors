@@ -3,9 +3,30 @@
     <head>
         <title>Rock Paper Scissors</title>
         <meta charset="UTF-8">
-        <script src="./script.js"></script>
+        <script src="./script.js" defer></script>
+        <link rel="stylesheet" href="./style.css">
     </head>
     <body>
-        <div>Let's Duel!</div>
+        <div class="nameContainer">
+            <input type="text" id="nameInput" name="nameInput">
+            <input type="submit" id="nameSubmit" value="Submit Player Name">
+        </div>
+        <div class="container">
+            <h1>It's Time to Duel!</h1>
+            <div id="winner">Who will emerge victorious?</div>
+            <div id="result">Ready, set, go!</div>
+            <div class="scoreBoard">
+                <div class="score" id="playerScore">0</div>
+                <div id="colon">:</div>
+                <div class="score" id="cpuScore">0</div>
+            </div>
+            <div class="buttons">
+                <button id="rock">Rock!</button>
+                <button id="paper">Paper!</button>
+                <button id="scissors">Scissors!</button>
+            </div>
+            <button id="reset" disabled>Play again!</button>
+        </div>
+        <div class="name">CPU</div>
     </body>
 </html>
